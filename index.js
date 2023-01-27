@@ -8,14 +8,14 @@ const bot = new telegramBot(TOKEN, {polling: true});
 var ids = [];
 
 async function getTemperature(city) {
-    const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+    const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=9d8a30bddd7972e8b70f6270affb61cb`;
     const response = await axios.get(url);
     return response.data.main.temp;
 }
 
-bot.on('message', async (msg) => {
+bot.on('message', (msg) => {
     if (msg.text.toString().toLowerCase().indexOf("hello") === 0) {
-        bot.sendMessage(msg.chat.id,"Welcome to the Temperature bot! I will send you the temperature in Delhi every hour.");
+        bot.sendMessage(msg.chat.id,"Welcome to the Temperature bot! I will send you the temperature in Delhi every hour. To get the message you need to type 'subscribe'");
     }
 })
 
@@ -28,7 +28,7 @@ bot.on('message', (msg) => {
                 // There is a error with the API_KEY so if we hard code the mesaage it works.
                 const temperature = await getTemperature('Delhi');
             bot.sendMessage(chatId, `The temperature in Delhi is currently ${temperature} degrees.`);
-            }, 3000);
+            }, 5000);
     }
 });
 
